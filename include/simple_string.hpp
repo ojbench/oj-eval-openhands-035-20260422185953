@@ -280,10 +280,8 @@ public:
             // enough capacity
             if (is_sso()) {
                 // move from SSO to heap
-                char* new_mem = new char[cap_ + 1]; // but cap_==0 here, so handle specially
-                // However in SSO, capacity() is 15 and new_len > 15, so allocate
                 size_t chosen = grow_capacity(15, new_len);
-                new_mem = new char[chosen + 1];
+                char* new_mem = new char[chosen + 1];
                 if (len_) std::memcpy(new_mem, small_buffer, len_);
                 std::memcpy(new_mem + len_, str, add);
                 new_mem[new_len] = '\0';
